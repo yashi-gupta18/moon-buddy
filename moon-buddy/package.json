@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "moon-buddy.helloWorld",
-        "title": "Hello World"
+        "command": "moon-buddy.open",
+        "title":  "Moon Buddy: Open"
       }
     ]
   },

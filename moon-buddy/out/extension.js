@@ -35,25 +35,40 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = activate;
 exports.deactivate = deactivate;
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = __importStar(require("vscode"));
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+const moonBuddyPanel_1 = require("./moonBuddyPanel");
+let codingTimer;
+let codingSeconds = 0;
+let isCoding = false;
 function activate(context) {
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "moon-buddy" is now active!');
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    const disposable = vscode.commands.registerCommand('moon-buddy.helloWorld', () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from Moon Buddy!');
+    const disposable = vscode.commands.registerCommand('moon-buddy.open', () => {
+        moonBuddyPanel_1.MoonBuddyPanel.createOrShow(context.extensionUri);
     });
     context.subscriptions.push(disposable);
+    const typingListener = vscode.workspace.onDidChangeTextDocument(() => {
+        moonBuddyPanel_1.MoonBuddyPanel.sendMessage({
+            type: 'typing'
+        });
+        // Start the coding timer only once
+        if (!isCoding) {
+            isCoding = true;
+            codingSeconds = 0;
+            codingTimer = setInterval(() => {
+                codingSeconds++;
+                console.log(`Moon Buddy coding time: ${codingSeconds}s`);
+                if (codingSeconds >= 20) {
+                    moonBuddyPanel_1.MoonBuddyPanel.sendMessage({
+                        type: 'coding-streak'
+                    });
+                }
+            }, 1000);
+        }
+    });
+    context.subscriptions.push(typingListener);
 }
-// This method is called when your extension is deactivated
-function deactivate() { }
+function deactivate() {
+    if (codingTimer) {
+        clearInterval(codingTimer);
+    }
+}
 //# sourceMappingURL=extension.js.map
