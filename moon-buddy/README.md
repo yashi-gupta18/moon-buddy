@@ -57,8 +57,12 @@ npm install
 Compile the extension:
 
 npm run compile
-
+ 
 Press F5 in VS Code to launch the Extension Development Host.
+
+## Preview
+
+![Moon Buddy Preview](assets/moon-buddy-preview.png)
 
 💜 Why Moon Buddy?
 

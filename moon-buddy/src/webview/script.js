@@ -213,3 +213,5 @@ window.addEventListener('message', event => {
 if (buddy.classList.contains('coding')) {
     startPersonality();
 }
+
+
