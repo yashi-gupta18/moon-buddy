@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# VS Code extension testing
+.vscode-test/
+
+# Compiled output
+out/
+
+# VS Code settings
+.vscode/
+
+# Packaged extension
+*.vsix
+
+# Logs
+*.log
+
+# Source maps
+*.map

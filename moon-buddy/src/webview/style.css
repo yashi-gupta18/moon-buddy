@@ -1,0 +1,318 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--vscode-font-family, system-ui, sans-serif);
+    color: #fffdf6;
+    background:
+        radial-gradient(circle at 50% 18%, rgba(255, 232, 168, .18), transparent 22%),
+        radial-gradient(circle at 20% 82%, rgba(51, 214, 178, .16), transparent 28%),
+        linear-gradient(155deg, #17182f 0%, #252044 46%, #11131f 100%);
+}
+
+.universe {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 220px;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff9d7;
+    box-shadow: 0 0 14px rgba(255, 249, 215, .8);
+    animation: twinkle 2s infinite ease-in-out;
+}
+
+.star:nth-child(1) {
+    top: 12%;
+    left: 15%;
+}
+
+.star:nth-child(2) {
+    top: 25%;
+    left: 80%;
+    animation-delay: .5s;
+}
+
+.star:nth-child(3) {
+    top: 65%;
+    left: 12%;
+    animation-delay: 1s;
+}
+
+.star:nth-child(4) {
+    top: 70%;
+    left: 85%;
+    animation-delay: 1.5s;
+}
+
+.star:nth-child(5) {
+    top: 40%;
+    left: 70%;
+    animation-delay: .8s;
+}
+
+.star:nth-child(6) {
+    top: 18%;
+    left: 55%;
+    animation-delay: 1.2s;
+}
+
+.moon-container {
+    position: absolute;
+    top: clamp(22px, 13vh, 92px);
+    animation: moonFloat 4s infinite ease-in-out;
+}
+
+.moon {
+    width: clamp(70px, 22vw, 112px);
+    height: clamp(70px, 22vw, 112px);
+    border-radius: 50%;
+    background: #fff4bd;
+    box-shadow:
+        0 0 20px #fff4bd,
+        0 0 50px rgba(255, 244, 189, .3);
+}
+
+.buddy-container {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 280px);
+    margin-top: clamp(58px, 16vh, 98px);
+    text-align: center;
+    animation: buddyFloat 2.5s infinite ease-in-out;
+}
+
+.buddy {
+    display: flex;
+    width: clamp(104px, 38vw, 148px);
+    height: clamp(104px, 38vw, 148px);
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease,
+        opacity 0.4s ease;
+}
+
+.buddy img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+}
+
+.buddy.idle {
+    transform: translateY(0);
+}
+
+.buddy.coding {
+    transform: translateY(-8px) scale(1.06);
+    filter: drop-shadow(0 0 18px rgba(129, 232, 255, .72));
+}
+
+.buddy.error {
+    transform: translateY(2px) rotate(-4deg);
+    filter: drop-shadow(0 0 18px rgba(255, 100, 120, .7));
+    animation: worried .25s ease-in-out infinite alternate;
+}
+
+.buddy.streak {
+    transform: translateY(-12px) scale(1.12);
+    filter: drop-shadow(0 0 25px rgba(255, 221, 130, .8));
+    animation: celebrate .6s ease-in-out infinite alternate;
+}
+
+.buddy.fixed {
+    transform: translateY(-10px) scale(1.12);
+    filter: drop-shadow(0 0 22px rgba(139, 245, 187, .8));
+    animation: happyBounce .5s ease-in-out 3;
+}
+
+.buddy.sleeping {
+    opacity: .78;
+    transform: translateY(5px) rotate(-4deg);
+    filter: brightness(.88);
+}
+
+.buddy.sleeping img {
+    animation: sleepyFloat 4s ease-in-out infinite;
+}
+
+.shadow {
+    width: clamp(64px, 24vw, 88px);
+    height: 15px;
+    margin: 7px auto 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .28);
+    filter: blur(4px);
+}
+
+.title {
+    margin: 30px 0 0;
+    font-size: clamp(22px, 7vw, 28px);
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.status {
+    display: flex;
+    min-height: 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 12px;
+    padding: 0 8px;
+    color: rgba(255, 253, 246, .86);
+    font-size: clamp(13px, 4vw, 15px);
+    line-height: 1.35;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 1.8s ease-in-out infinite;
+}
+
+#status-text {
+    overflow-wrap: anywhere;
+}
+
+#coding-time {
+    margin-top: 10px;
+    color: rgba(255, 253, 246, .62);
+    font-family: var(--vscode-editor-font-family, monospace);
+    font-size: 13px;
+    letter-spacing: 0;
+}
+
+@keyframes worried {
+    from {
+        transform: translateX(-3px) rotate(-4deg);
+    }
+
+    to {
+        transform: translateX(3px) rotate(4deg);
+    }
+}
+
+@keyframes happyBounce {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-15px) scale(1.15);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes celebrate {
+    from {
+        transform: translateY(-8px) scale(1.08) rotate(-3deg);
+    }
+
+    to {
+        transform: translateY(-15px) scale(1.15) rotate(3deg);
+    }
+}
+
+@keyframes sleepyFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: .5;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 1;
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: .2;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes moonFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes buddyFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@media (max-height: 430px) {
+    .moon-container {
+        top: 18px;
+    }
+
+    .buddy-container {
+        margin-top: 58px;
+    }
+
+    .title {
+        margin-top: 18px;
+    }
+}

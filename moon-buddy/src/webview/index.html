@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Buddy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="universe" aria-label="Moon Buddy coding companion">
+        <div class="stars" aria-hidden="true">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+        </div>
+
+        <div class="moon-container" aria-hidden="true">
+            <div class="moon"></div>
+        </div>
+
+        <section class="buddy-container">
+            <div id="buddy" class="buddy sleeping">
+                <img
+                    id="buddy-image"
+                    src="pets/cat-sleeping.png"
+                    data-idle="pets/cat-idle.png"
+                    data-sleeping="pets/cat-sleeping.png"
+                    data-coding="pets/cat-coding.png"
+                    data-fixed="pets/cat-fixed.png"
+                    data-error="pets/cat-error.png"
+                    alt="Moon Buddy"
+                >
+            </div>
+
+            <div class="shadow" aria-hidden="true"></div>
+
+            <h1 class="title">Moon Buddy</h1>
+
+            <div id="status" class="status" role="status" aria-live="polite">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="status-text">Taking a little nap...</span>
+            </div>
+
+            <div id="coding-time" aria-label="Coding time">00:00</div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
